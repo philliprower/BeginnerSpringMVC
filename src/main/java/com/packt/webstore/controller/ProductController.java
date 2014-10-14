@@ -124,7 +124,7 @@ public class ProductController {
 				
 			if (productImage!=null && !productImage.isEmpty()) {
 		       try {
-		      	productImage.transferTo(new File(rootDirectory+"resources\\images\\"+productToBeAdded.getProductId() + ".png"));
+		      	productImage.transferTo(new File(rootDirectory+ "resources" + File.separatorChar + "images" + File.separatorChar +productToBeAdded.getProductId() + ".png"));
 		       } catch (Exception e) {
 				throw new RuntimeException("Product Image saving failed", e);
 		   }
@@ -148,6 +148,11 @@ public class ProductController {
 		 mav.addObject("url", req.getRequestURL()+"?"+req.getQueryString());
 		 mav.setViewName("productNotFound");
 		 return mav;
+	}
+	
+	@RequestMapping("/invalidPromoCode")
+	public String invalidPromoCode() {
+			return "invalidPromoCode";
 	}
 
 
