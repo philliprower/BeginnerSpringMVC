@@ -21,5 +21,6 @@
    		<property name="basename" value="messages"/> 
 	</bean>
 	
+	<mvc:resources  location="/resources/"  mapping="/resource/**"/>
 
 </beans>
