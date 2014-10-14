@@ -1,7 +1,11 @@
 package com.packt.webstore.controller;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.packt.webstore.domain.Product;
 import com.packt.webstore.service.ProductService;
 
 @Controller
@@ -52,5 +57,29 @@ public class ProductController {
 	public String getProductById(@RequestParam("id") String productId, Model model) {
 		model.addAttribute("product", productService.getProductById(productId));
 		return "product";
+	}
+	
+	@RequestMapping("/{category}/{price}")
+	public String getProductsByPrice(@PathVariable("category") String productCategory, @MatrixVariable(pathVar="price") Map<String,List<String>> filterParams, Model model, @RequestParam String manufacturer) {
+		List<Product> products = new ArrayList<>();
+		
+		List<Product> pm = productService.getProductsByManufacturer(manufacturer);
+		List<Product> pc = productService.getProductsByCategory(productCategory);
+		Set<Product> intersection = new HashSet<>(pm);
+		List<Product> intermediate = new ArrayList<>();
+		for (Product product : pc) {
+			if (intersection.contains(product)) {
+				intermediate.add(product);
+			}
+		}
+		BigDecimal low = new BigDecimal(filterParams.get("low").get(0));
+		BigDecimal high = new BigDecimal(filterParams.get("high").get(0));
+		for (Product product : intermediate) {
+			if (low.compareTo(product.getUnitPrice()) <= 0 && high.compareTo(product.getUnitPrice()) >= 0) {
+				products.add(product);
+			}
+		}		
+		model.addAttribute("products", products);
+		return "products";
 	}
 }
