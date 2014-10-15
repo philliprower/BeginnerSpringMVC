@@ -8,20 +8,6 @@
 <link rel="stylesheet"	href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
 <title>Products</title>
 </head>
-<body>
-	<section>
-		<div class="jumbotron">
-			<div class="container">
-				<h1>Products</h1>
-				<p>Add products</p>
-			</div>
-			<a href="<c:url value="/j_spring_security_logout" />" class="btn btn-danger btn-mini pull-right">logout</a>	
-			<div class="pull-right" style="padding-right:50px">
-				<a href="?language=en" >English</a>|<a href="?language=nl" >Dutch</a>					
-			</div>
-			
-		</div>
-	</section>
 	<section class="container">
 		<form:form  modelAttribute="newProduct" class="form-horizontal" enctype="multipart/form-data">
 			<fieldset>
