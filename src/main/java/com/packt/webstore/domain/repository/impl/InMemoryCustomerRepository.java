@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
+import com.packt.webstore.domain.Address;
 import com.packt.webstore.domain.Customer;
 import com.packt.webstore.domain.repository.CustomerRepository;
 
@@ -24,16 +25,26 @@ public class InMemoryCustomerRepository implements CustomerRepository {
 	public List<Customer> getAllCustomers() {
 		List<Customer> results = new ArrayList<Customer>();
 		Customer c1 = new Customer();
-		c1.setAddress("1234 Main St, USA");
+		Address a = new Address();
+		a.setStreetName("Main St.");
+		a.setDoorNo("1234");
+		a.setState("MI");
+		a.setAreaName("Detroit");
+		a.setZipCode("44000");
+		c1.setBillingAddress(a);
 		c1.setCustomerId("C1");
 		c1.setName("Top Dog");
-		c1.setNoOfOrdersMade(12);
 		results.add(c1);
 		Customer c2 = new Customer();
-		c2.setAddress("432 Washington St, USA");
+		Address a2 = new Address();
+		a2.setStreetName("Washington St.");
+		a2.setDoorNo("432");
+		a2.setState("MI");
+		a2.setAreaName("Detroit");
+		a2.setZipCode("44000");
+		c1.setBillingAddress(a2);
 		c2.setCustomerId("C3");
 		c2.setName("Omega Dog");
-		c2.setNoOfOrdersMade(2);
 		results.add(c2);
 		return results;
 	}
