@@ -4,4 +4,4 @@ target/
 .classpath
 .project
 .idea
-com.packt.webstore.iml
+*.iml
